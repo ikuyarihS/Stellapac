@@ -10,19 +10,19 @@ class BaseSelectionScene {
   private container: PIXI.Container;
 
   /** The selection sprites */
-  private selections: Character[];
+  public selections: Character[];
 
   /** The selected index */
-  private selectedIndex: number;
+  public selectedIndex: number;
 
   /** The default scale of the sprites */
-  private readonly defaultScale = 5;
+  public defaultScale = 5;
 
-  /** The textures of the characters */
-  textures: string[] = [];
+  /** The textures of the selections */
+  public textures: string[] = [];
 
   /** The title of the scene */
-  title: string = '';
+  public title: string = '';
 
   constructor(app: PIXI.Application) {
     this.app = app;
@@ -33,28 +33,28 @@ class BaseSelectionScene {
 
   /** Load the necessary assets for the scene */
   public async load(): Promise<void> {
-    await this.loadCharacters();
+    await this.loadSelections();
   }
 
   /** Create the scene */
   public create(): void {
     this.createBackground();
     this.createTitle();
-    this.createCharacters();
+    this.createSelections();
     this.createConfirmButton();
   }
 
-  /** Load the characters */
-  private async loadCharacters(): Promise<void> {
+  /** Load the selections */
+  async loadSelections(): Promise<void> {
     this.selections = await Promise.all(
       this.textures.map(async (texture, index) => {
-        const character = new Character(texture);
-        await character.load();
-        character.container.on('click', () => {
-          this.selectCharacter(index);
+        const selection = new Character(texture);
+        await selection.load();
+        selection.container.on('click', () => {
+          this.select(index);
         });
-        character.container.eventMode = 'static';
-        return character;
+        selection.container.eventMode = 'static';
+        return selection;
       }),
     );
   }
@@ -81,15 +81,15 @@ class BaseSelectionScene {
     this.container.addChild(pixiTitle);
   }
 
-  /** Create the characters */
-  private createCharacters(): void {
+  /** Create the selections */
+  private createSelections(): void {
     this.selections.forEach((character, index) => {
       character.setScale(this.defaultScale);
       const characterContainer = character.container;
-      characterContainer.position.set((this.app.screen.width / 4) * (index + 1), this.app.screen.height / 2);
+      characterContainer.position.set((this.app.screen.width / 4) * (index + 1), this.app.screen.height / 3);
       this.container.addChild(characterContainer);
     });
-    this.selectCharacter(this.selectedIndex);
+    this.select(this.selectedIndex);
   }
 
   /** Create the confirm button */
@@ -118,7 +118,7 @@ class BaseSelectionScene {
   }
 
   /** Select a character */
-  private selectCharacter(index: number): void {
+  public select(index: number): void {
     if (index < 0 || index >= this.selections.length) {
       return;
     }

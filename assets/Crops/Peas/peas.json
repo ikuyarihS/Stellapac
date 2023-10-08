@@ -75,6 +75,16 @@
       "peas_6.png",
       "peas_7.png",
       "peas_8.png"
+    ],
+    "wither": [
+      "peas_8.png",
+      "peas_7.png",
+      "peas_6.png",
+      "peas_5.png",
+      "peas_4.png",
+      "peas_3.png",
+      "peas_2.png",
+      "peas_1.png"
     ]
   },
   "meta": {

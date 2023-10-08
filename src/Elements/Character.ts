@@ -1,4 +1,5 @@
-import { AnimatedSprite, BaseTexture, Container, Spritesheet } from 'pixi.js';
+import { AnimatedSprite, Container } from 'pixi.js';
+import utils from '../utils';
 
 const DIRECTIONS = ['up', 'down', 'left', 'right'] as const;
 
@@ -38,9 +39,7 @@ class Character {
    * @returns {Promise<void>}
    */
   async load() {
-    const metadata = await import(this.path);
-    const spritesheet = new Spritesheet(BaseTexture.from(metadata.meta.image), metadata);
-    await spritesheet.parse();
+    const spritesheet = await utils.loadSpritesheet(this.path);
     for (const direction of DIRECTIONS) {
       const anim = new AnimatedSprite(spritesheet.animations[direction]);
       anim.animationSpeed = this.animationSpeed;

@@ -58,7 +58,8 @@
     }
   },
   "animations": {
-    "grow": ["wheat_1.png", "wheat_2.png", "wheat_3.png", "wheat_4.png", "wheat_5.png", "wheat_6.png", "wheat_7.png"]
+    "grow": ["wheat_1.png", "wheat_2.png", "wheat_3.png", "wheat_4.png", "wheat_5.png", "wheat_6.png", "wheat_7.png"],
+    "wither": ["wheat_7.png", "wheat_6.png", "wheat_5.png", "wheat_4.png", "wheat_3.png", "wheat_2.png", "wheat_1.png"]
   },
   "meta": {
     "app": "http://free-tex-packer.com",

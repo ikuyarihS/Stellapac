@@ -183,6 +183,28 @@
       "corn_18.png",
       "corn_19.png",
       "corn_20.png"
+    ],
+    "wither": [
+      "corn_20.png",
+      "corn_19.png",
+      "corn_18.png",
+      "corn_17.png",
+      "corn_16.png",
+      "corn_15.png",
+      "corn_14.png",
+      "corn_13.png",
+      "corn_12.png",
+      "corn_11.png",
+      "corn_10.png",
+      "corn_9.png",
+      "corn_8.png",
+      "corn_7.png",
+      "corn_6.png",
+      "corn_5.png",
+      "corn_4.png",
+      "corn_3.png",
+      "corn_2.png",
+      "corn_1.png"
     ]
   },
   "meta": {

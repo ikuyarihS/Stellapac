@@ -1,4 +1,5 @@
-import { AnimatedSprite, BaseTexture, Container, Spritesheet } from 'pixi.js';
+import { AnimatedSprite, Container } from 'pixi.js';
+import utils from '../utils';
 
 /**
  * Animated crop class
@@ -19,6 +20,8 @@ class Crop {
   /** The container of the crop */
   public container = new Container();
 
+  private readonly chunkSize = 64;
+
   constructor(name: string, animationSpeed = 0.01) {
     this.name = name;
     this.animationSpeed = animationSpeed;
@@ -29,13 +32,24 @@ class Crop {
    * @returns {Promise<void>}
    */
   async load() {
-    const metadata = await import(`../../assets/Crops/${this.name}/${this.name.toLowerCase()}.json`);
-    const spritesheet = new Spritesheet(BaseTexture.from(metadata.meta.image), metadata);
-    await spritesheet.parse();
+    const spritesheet = await utils.loadSpritesheet(`../../assets/Crops/${this.name}/${this.name.toLowerCase()}.json`);
     const anim = new AnimatedSprite(spritesheet.animations.grow);
     anim.animationSpeed = this.animationSpeed;
-    anim.anchor.set(0.5);
     anim.play();
+    anim.height = this.chunkSize;
+    anim.width = this.chunkSize;
+    anim.loop = false;
+    this.animation = anim;
+    this.container.addChild(this.animation);
+  }
+
+  async wither() {
+    const spritesheet = await utils.loadSpritesheet(`../../assets/Crops/${this.name}/${this.name.toLowerCase()}.json`);
+    const anim = new AnimatedSprite(spritesheet.animations.wither);
+    anim.animationSpeed = this.animationSpeed;
+    anim.play();
+    anim.height = this.chunkSize;
+    anim.width = this.chunkSize;
     anim.loop = false;
     this.animation = anim;
     this.container.addChild(this.animation);
