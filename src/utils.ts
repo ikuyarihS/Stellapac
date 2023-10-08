@@ -5,7 +5,8 @@ const spritesheets: Record<string, PIXI.Spritesheet> = {};
 const utils = {
   loadSpritesheet: async (path: string) => {
     if (!spritesheets[path]) {
-      const metadata = await import(path);
+      // const metadata = await import(path);
+      const metadata = await import(path , { assert: { type: "json" } }).then(module => module.default);
       const spritesheet = new PIXI.Spritesheet(PIXI.BaseTexture.from(metadata.meta.image), metadata);
       await spritesheet.parse();
       spritesheets[path] = spritesheet;

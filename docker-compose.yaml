@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: stellapac/frontend
+    image: nguyenhoamy1602/stellapac
     ports:
       - 80:80
       - 443:443
