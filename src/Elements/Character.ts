@@ -38,7 +38,7 @@ class Character {
    * @returns {Promise<void>}
    */
   async load() {
-    const metadata = await import(this.path);
+    const metadata = await import(this.path , { assert: { type: "json" } }).then(module => module.default);
     const spritesheet = new Spritesheet(BaseTexture.from(metadata.meta.image), metadata);
     await spritesheet.parse();
     for (const direction of DIRECTIONS) {
