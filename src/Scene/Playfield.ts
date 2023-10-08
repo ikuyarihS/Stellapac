@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { ActionMenu, Character, Chicken, Clock, Crop, Map } from '../Elements';
+import { ActionMenu, Character, Chicken, Clock, Crop, Map, Dialog } from '../Elements';
 import utils from '../utils';
 
 class PlayfieldScene {
@@ -8,6 +8,7 @@ class PlayfieldScene {
   private chickens: Chicken[] = [];
   private crops: Crop[] = [];
   private player: Character;
+  private dialog: Dialog;
   private map: Map;
   private planetary: any; // TODO: define planetary type
 
@@ -20,6 +21,10 @@ class PlayfieldScene {
     this.planetary = planetary;
     this.map = new Map(this.planetary.properties);
 
+    this.dialog = new Dialog(['hi']);
+
+    this.container.addChild(this.dialog);
+
     this.app.stage.on('click', () => {
       console.log('click');
     });
@@ -30,9 +35,9 @@ class PlayfieldScene {
     // this.createBackground();
     this.map.generateMap(this.app);
     this.container.addChild(this.map.container);
+    await this.spawnCrops('Corn', 0.1);
     this.spawnPlayer();
     await this.spawnChickens();
-    await this.spawnCrops('Corn', 0.1);
     this.container.addChild(this.clock.container);
   }
 

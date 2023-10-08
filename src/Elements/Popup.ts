@@ -5,42 +5,61 @@ class Popup extends PIXI.Container {
   private image: PIXI.Sprite;
   private title: PIXI.Text;
   private description: PIXI.Text;
+  private detail: PIXI.Text;
 
-  constructor(imageUrl: string, titleText: string, descriptionText: string) {
+  constructor(imageUrl: string, titleText: string, descriptionText: string, detailText: string) {
     super();
 
     // Create the background
     this.background = new PIXI.Graphics();
     this.background.beginFill(0xffffff);
-    this.background.drawRect(0, 0, 400, 400);
+    this.background.drawRect(0, 0, 760, 850);
     this.background.endFill();
     this.addChild(this.background);
 
     // Create the image
     this.image = PIXI.Sprite.from(imageUrl);
-    this.image.width = 350;
-    this.image.height = 250;
-    this.image.position.set(25, 25);
+    this.image.width = 700;
+    this.image.height = 500;
+    this.image.position.set(30, 30);
     this.addChild(this.image);
 
     // Create the title
     this.title = new PIXI.Text(titleText, {
-      fontSize: 24,
+      fontSize: 55,
       fontWeight: 'bold',
       fill: 0x000000,
     });
-    this.title.position.set(25, 280);
+    this.title.position.set(125, 530);
     this.addChild(this.title);
+
+    const textTiny = new PIXI.Text('(Modal scan)', {
+      fontSize: 30,
+      fontWeight: 'bold',
+      fill: 0x000000,
+    });
+    textTiny.position.set(titleText.length * 45, 545);
+    this.addChild(textTiny);
 
     // Create the description
     this.description = new PIXI.Text(descriptionText, {
-      fontSize: 16,
+      fontSize: 25,
       fill: 0x000000,
       wordWrap: true,
-      wordWrapWidth: 300,
+      wordWrapWidth: 700,
     });
-    this.description.position.set(25, 310);
+    this.description.position.set(25, 590);
     this.addChild(this.description);
+
+    this.detail = new PIXI.Text(detailText, {
+      fontSize: 25,
+      fill: 0x000000,
+      fontWeight: 'bold',
+      wordWrap: true,
+      wordWrapWidth: 760,
+    });
+    this.detail.position.set(25, 740);
+    this.addChild(this.detail);
   }
 }
 

@@ -107,7 +107,7 @@ class Map {
         failedCount = 0;
       } else {
         failedCount += 1;
-        if (failedCount > 10) {
+        if (failedCount > 100) {
           console.log('failed');
           break;
         }
@@ -119,17 +119,17 @@ class Map {
   }
 
   private generateWater() {
-    const initialX = Math.floor(Math.random() * (this.properties.columns - 1) + 1);
-    const initialY = Math.floor(Math.random() * (this.properties.rows - 1) + 1);
+    const initialX = Math.floor(Math.random() * this.properties.columns);
+    const initialY = Math.floor(Math.random() * this.properties.rows);
     this.generateBySpreading('water', this.properties.waters, initialX, initialY);
   }
 
   private generateGrass() {
-    let initialX = Math.floor(Math.random() * (this.properties.columns - 1) + 1);
-    let initialY = Math.floor(Math.random() * (this.properties.rows - 1) + 1);
+    let initialX = Math.floor(Math.random() * this.properties.columns);
+    let initialY = Math.floor(Math.random() * this.properties.rows);
     while (this.grid[initialX][initialY] !== '') {
-      initialX = Math.floor(Math.random() * (this.properties.columns - 1) + 1);
-      initialY = Math.floor(Math.random() * (this.properties.rows - 1) + 1);
+      initialX = Math.floor(Math.random() * this.properties.columns);
+      initialY = Math.floor(Math.random() * this.properties.rows);
     }
 
     this.generateBySpreading('grass', this.properties.grasses, initialX, initialY);

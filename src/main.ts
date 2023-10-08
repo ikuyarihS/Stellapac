@@ -4,6 +4,7 @@ import CharacterSelectionScene from './Scene/CharacterSelection';
 import store from './store';
 
 const app = new PIXI.Application({ background: '#1099bb', resizeTo: window });
+store.app = app;
 
 const characterSelection = new CharacterSelectionScene(app);
 await characterSelection.initialize();

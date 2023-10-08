@@ -3,5 +3,6 @@ export { default as Character } from './Character';
 export { default as Chicken } from './Chicken';
 export { default as Clock } from './Clock';
 export { default as Crop } from './Crop';
+export { default as Dialog } from './Dialog';
 export { default as Map } from './Map';
 export { default as Planetary } from './Planetary';

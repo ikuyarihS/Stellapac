@@ -8,24 +8,27 @@ class PlanetarySelectionScene extends BaseSelectionScene {
   public defaultScale = 0.4;
   textures = [
     {
-      path: '../../assets/Planetary/Planet_1.png',
-      screenshot: '../../assets/Planetary/PSS1.png',
-      title: 'Planet 1 - Satellite image',
-      description: '',
+      path: '../../assets/Planetary/PSS1.png',
+      screenshot: '../../assets/Planetary/Planet_1.png',
+      title: 'Veridian-7',
+      description:
+        'a world that bears witness to the ancient rhythms of life. Its history is woven with tales of communities living in harmony with nature. The cultural heritage here is a celebration of sustainable practices, where every crop and creature holds a sacred place in the ecosystem',
       properties: { waters: 0.3, grasses: 0.1, earths: 0.4 },
     },
     {
-      path: '../../assets/Planetary/Planet_2.png',
-      screenshot: '../../assets/Planetary/PSS2.png',
-      title: 'Planet 2 - Satellite image',
-      description: '',
+      path: '../../assets/Planetary/PSS2.png',
+      screenshot: '../../assets/Planetary/Planet_2.png',
+      title: 'Aridora-9',
+      description:
+        'a planet of resilience and resourcefulness. Its people, known for their ingenuity, have transformed the arid landscapes into thriving agricultural hubs. The cultural tapestry here is one of determination, where water, though scarce, is revered as a life-giving force',
       properties: { waters: 0.1, grasses: 0.5, earths: 0.4 },
     },
     {
-      path: '../../assets/Planetary/Planet_3.png',
-      screenshot: '../../assets/Planetary/PSS3.png',
-      title: 'Planet 3 - Satellite image',
-      description: '',
+      path: '../../assets/Planetary/PSS3.png',
+      screenshot: '../../assets/Planetary/Planet_3.png',
+      title: 'Icehaven-12',
+      description:
+        "once a world shrouded in frost, has witnessed a remarkable metamorphosis. The planet's cultural legacy now embraces adaptability and innovation. Here, the thawing landscapes are a testament to the collective effort to breathe life into a once-frozen realm",
       properties: { waters: 0.2, grasses: 0.5, earths: 0.3 },
     },
   ];

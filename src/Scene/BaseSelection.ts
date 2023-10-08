@@ -101,7 +101,7 @@ class BaseSelectionScene {
       align: 'center',
     });
     button.anchor.set(0.5);
-    button.position.set(this.app.screen.width / 2, this.app.screen.height - 100);
+    button.position.set(this.app.screen.width / 2, this.app.screen.height - 50);
     button.eventMode = 'static';
     button.on('click', () => {
       this.onComplete();

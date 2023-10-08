@@ -44,6 +44,9 @@ class Planetary {
 
     const sprite = Sprite.from(path);
     sprite.anchor.set(0.5);
+    sprite.scale.set(2);
+    sprite.width = 700;
+    sprite.height = 500;
     this.sprite = sprite;
     this.container.addChild(this.sprite);
 
@@ -55,12 +58,12 @@ class Planetary {
     this.popup = new Popup(
       this.screenshotPath,
       this.title,
-      this.description +
-        '\n' +
-        Object.entries(this.properties)
-          .map(([key, value]) => `${key[0].toUpperCase()}${key.substring(1)}: ${value * 100}%`)
-          .join('\n'),
+      this.description,
+      Object.entries(this.properties)
+        .map(([key, value]) => `${key[0].toUpperCase()}${key.substring(1)}: ${value * 100}%`)
+        .join('\n'),
     );
+    this.popup.position = { x: -380, y: 250 };
     this.container.addChild(this.popup);
   }
 
@@ -74,7 +77,7 @@ class Planetary {
    * @param {number} scale
    */
   public setScale(scale: number) {
-    this.sprite.scale.set(scale);
+    this.container.scale.set(scale);
   }
 }
 
