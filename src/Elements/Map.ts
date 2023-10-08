@@ -77,13 +77,15 @@ class Map {
     });
   }
 
-  private generateSurroundingTiles = (x: number, y: number) =>
-    [
+  private generateSurroundingTiles = (x: number, y: number) => {
+    const tiles = [
       [x - 1, y],
       [x + 1, y],
       [x, y - 1],
       [x, y + 1],
-    ].filter(([x, y]) => x >= 0 && x < this.properties.columns && y >= 0 && y < this.properties.rows);
+    ].filter(([x, y]) => x > 0 && x < this.properties.columns - 1 && y > 0 && y < this.properties.rows - 1);
+    return tiles;
+  };
 
   private generateBySpreading(name: string, amount: number, initialX: number, initialY: number) {
     const filled = [[initialX, initialY]];

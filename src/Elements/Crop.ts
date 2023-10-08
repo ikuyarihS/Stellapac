@@ -16,6 +16,7 @@ class Crop {
 
   /** The animation of the crop */
   public animation: AnimatedSprite;
+  private status: 'growing' | 'withering' = 'growing';
 
   /** The container of the crop */
   public container = new Container();
@@ -31,10 +32,11 @@ class Crop {
    * Load the crop spritesheet
    * @returns {Promise<void>}
    */
-  async load() {
+  async grow() {
+    this.container.removeChildren();
     const spritesheet = await utils.loadSpritesheet(`../../assets/Crops/${this.name}/${this.name.toLowerCase()}.json`);
     const anim = new AnimatedSprite(spritesheet.animations.grow);
-    anim.animationSpeed = this.animationSpeed;
+    anim.animationSpeed = utils.randomInt(1, this.animationSpeed * 100) / 100;
     anim.play();
     anim.height = this.chunkSize;
     anim.width = this.chunkSize;
@@ -44,6 +46,11 @@ class Crop {
   }
 
   async wither() {
+    if (this.status === 'withering') {
+      return;
+    }
+    this.container.removeChildren();
+    this.status = 'withering';
     const spritesheet = await utils.loadSpritesheet(`../../assets/Crops/${this.name}/${this.name.toLowerCase()}.json`);
     const anim = new AnimatedSprite(spritesheet.animations.wither);
     anim.animationSpeed = this.animationSpeed;

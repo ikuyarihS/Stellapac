@@ -110,7 +110,7 @@ class PlayfieldScene {
       for (let y = 2; y < this.map.grid[x].length - 2; y++) {
         if (this.map.grid[x][y] !== 'water') {
           const crop = new Crop(name, animationSpeed);
-          await crop.load();
+          await crop.grow();
           crop.animation.height = this.map.chunkSize;
           crop.animation.width = this.map.chunkSize;
           crop.container.position.x = x * this.map.chunkSize;
@@ -133,6 +133,7 @@ class PlayfieldScene {
         const crop = utils.randomize(this.crops);
         crop.wither();
       }
+      this.sinceLastEvent = 0;
     }
     // this.checkEvent();
   }

@@ -18,7 +18,7 @@ const utils = {
   },
 
   randomize: (array: any[]) => {
-    return array[utils.randomInt(array.length)];
+    return array[utils.randomInt(array.length - 1)];
   },
 
   shuffle: (array: any[]) => {
