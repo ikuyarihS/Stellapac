@@ -1,4 +1,4 @@
-import { Planetary } from '../Elements';
+import { Dialog, Planetary } from '../Elements';
 import store from '../store';
 import BaseSelectionScene from './BaseSelection';
 import PlayfieldScene from './Playfield';
@@ -32,8 +32,22 @@ class PlanetarySelectionScene extends BaseSelectionScene {
       properties: { waters: 0.2, grasses: 0.5, earths: 0.3 },
     },
   ];
-  title = 'Select Your Planetary';
+  title = 'Select Your Planet';
   selections: Planetary[] = [];
+
+  /** Initialize the scene */
+  public async initialize(): Promise<PIXI.Container> {
+    const container = await super.initialize();
+    const dialog = new Dialog([
+      'Before you lies a celestial canvas, each planet a world steeped in history and culture. With the aid of advanced satellite imaging and landcover classification models, you have the power to unlock their secrets.',
+      'Veridian-7, a world that bears witness to the ancient rhythms of life. Its history is woven with tales of communities living in harmony with nature. The cultural heritage here is a celebration of sustainable practices, where every crop and creature holds a sacred place in the ecosystem.',
+      'Aridora-9, a planet of resilience and resourcefulness. Its people, known for their ingenuity, have transformed the arid landscapes into thriving agricultural hubs. The cultural tapestry here is one of determination, where water, though scarce, is revered as a life-giving force.',
+      "Icehaven-12, once a world shrouded in frost, has witnessed a remarkable metamorphosis. The planet's cultural legacy now embraces adaptability and innovation. Here, the thawing landscapes are a testament to the collective effort to breathe life into a once-frozen realm.",
+      'Mouse over each planet to understand the land classification.  for each planet offers a unique tapestry of history and culture. Which world will you embrace, carrying forward its legacy, and turning its potential into a thriving beacon of sustainable agriculture?',
+    ]);
+    dialog.addToContainer(container);
+    return container;
+  }
 
   /** Load the selections */
   async loadSelections(): Promise<void> {

@@ -1,5 +1,6 @@
 import { AnimatedSprite, Container } from 'pixi.js';
 import utils from '../utils';
+import Popup from './Popup';
 
 const DIRECTIONS = ['up', 'down', 'left', 'right'] as const;
 
@@ -8,6 +9,12 @@ interface Animations {
   down: AnimatedSprite;
   left: AnimatedSprite;
   right: AnimatedSprite;
+}
+
+interface CharacterProps {
+  path: string;
+  title: string;
+  description: string;
 }
 
 /**
@@ -22,16 +29,21 @@ class Character {
   private readonly animationSpeed = 0.1;
 
   /** The animations of the character */
-  animations: Animations = {} as Animations;
+  public animations: Animations = {} as Animations;
 
   /** The position of the character */
-  position: { x: number; y: number } = { x: 0, y: 0 };
+  public position: { x: number; y: number } = { x: 0, y: 0 };
 
   /** The container of the character */
-  container = new Container();
+  public container = new Container();
 
-  constructor(path: string) {
+  private details: { title: string; description: string };
+  private popup: Popup;
+
+  constructor({ path, title, description }: CharacterProps) {
     this.path = path;
+    this.details = { title, description };
+    this.popup = new Popup('', this.details.title, this.details.description, '');
   }
 
   /**
@@ -48,6 +60,19 @@ class Character {
       this.animations[direction] = anim;
     }
     this.container.addChild(this.animations.down);
+  }
+
+  public showPopup() {
+    console.log('show popup');
+    this.popup = new Popup('', this.details.title, this.details.description, '');
+    this.popup.position = { x: -190, y: 100 };
+    this.popup.scale.set(0.5);
+    this.container.addChild(this.popup);
+  }
+
+  public hidePopup() {
+    console.log('hide popup');
+    this.popup.destroy();
   }
 
   /**

@@ -4,7 +4,7 @@ import store from '../store';
 class Dialog extends PIXI.Container {
   private background: PIXI.Graphics;
   private texts: PIXI.Text[];
-  private actionButton: PIXI.Sprite;
+  private actionButton: PIXI.Graphics;
   private actionCallback: () => void;
   private currentIndex = 0;
 
@@ -13,59 +13,66 @@ class Dialog extends PIXI.Container {
 
     // Create the background
     this.background = new PIXI.Graphics();
-    this.background.beginFill(0x000000);
-    this.background.drawRect(0, 0, 400, 200);
+    this.background.beginFill(0xdce0d2);
+    this.background.drawRect(0, 0, store.app.view.width, 200);
     this.background.endFill();
+    // this.background.position.set(0, 100);-===[]
     this.addChild(this.background);
 
     this.texts = texts.map((text) => {
       const pixiText = new PIXI.Text(text, {
         fontFamily: 'Arial',
-        fontSize: 20,
-        fill: 0xffffff,
+        fontSize: 30,
         wordWrap: true,
-        wordWrapWidth: 380,
+        wordWrapWidth: this.background.width - 10,
+        letterSpacing: -2,
       });
       pixiText.position.set(10, 10);
       return pixiText;
     });
 
-    this.addChildAt(this.texts[0], 0);
+    console.log(this.texts);
 
     // Create the action button
-    this.actionButton = new PIXI.Sprite(PIXI.Texture.WHITE);
-    this.actionButton.width = 50;
-    this.actionButton.height = 50;
-    this.actionButton.tint = 0x00ff00;
-    this.actionButton.position.set(300, 150);
+    this.actionButton = new PIXI.Graphics();
+    this.actionButton.beginFill();
+    this.actionButton.drawRect(0, 0, 150, 50);
+    this.actionButton.endFill();
+    this.actionButton.position.set(store.app.view.width - 170, 140);
+    this.addChild(this.actionButton);
+
     this.actionButton.eventMode = 'static';
     this.actionButton.on('pointerdown', () => {
-      this.next();
+      texts.length === 1 ? this.destroy() : this.next();
     });
     this.addChild(this.actionButton);
 
     // Create the button text
-    const buttonText = new PIXI.Text(texts.length === 0 ? 'Take action' : 'Next', {
+    const buttonText = new PIXI.Text(texts.length === 1 ? 'Ok' : 'Next', {
       fontFamily: 'Arial',
-      fontSize: 12,
+      fontSize: 24,
       fill: 0xffffff,
     });
-    buttonText.position.set(0, 0);
+    buttonText.anchor.set(0.5);
+    buttonText.position.set(this.actionButton.width / 2, this.actionButton.height / 2);
     this.actionButton.addChild(buttonText);
 
     // Save the action callback
     this.actionCallback = actionCallback;
+
+    this.addChild(this.texts[0]);
   }
 
   private next() {
-    if (this.currentIndex > this.texts.length - 1) {
+    if (this.currentIndex >= this.texts.length - 1) {
       return;
     }
+    const textRenderIndex = this.getChildIndex(this.texts[this.currentIndex]);
     this.removeChild(this.texts[this.currentIndex]);
     this.currentIndex++;
-    this.addChildAt(this.texts[this.currentIndex], 0);
+    this.addChildAt(this.texts[this.currentIndex], textRenderIndex);
     if (this.currentIndex === this.texts.length - 1) {
-      this.actionButton.children[0].text = 'Take action';
+      this.actionButton.children[0].text = 'Ok';
       this.actionButton.on('pointerdown', () => {
         this.actionCallback();
       });

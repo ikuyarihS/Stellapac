@@ -32,13 +32,19 @@ class PlayfieldScene {
   }
 
   public async initialize() {
-    // this.createBackground();
     this.map.generateMap(this.app);
     this.container.addChild(this.map.container);
     await this.spawnCrops('Corn', 0.1);
     this.spawnPlayer();
     await this.spawnChickens();
     this.container.addChild(this.clock.container);
+    const dialog = new Dialog([
+      "As you step onto the soil of your chosen planet, a new chapter in regenerative agriculture unfolds before you. The landscape holds the echoes of a rich history, and now it's your turn to leave a legacy of sustainable abundance.",
+      "Your first challenge: Crop Rotation. This ancient practice is the cornerstone of sustainable farming, ensuring the health and fertility of the soil. By strategically rotating crops, you'll optimize nutrient balance and minimize the risk of pests and diseases.",
+      'Select your initial crops wisely, considering their nutrient needs and compatibility. Observing the rhythms of nature will be key to your success. Let the dance of the seasons guide your choices.',
+      'As you embark on this journey, remember that every decision you make has a ripple effect on the ecosystem. Embrace the power of regenerative agriculture, and watch as your outpost flourishes with life and vitality.',
+    ]);
+    dialog.addToContainer(this.container);
   }
 
   /** Create the background */
@@ -132,11 +138,11 @@ class PlayfieldScene {
     this.moveChickens(delta);
     this.clock.render(delta);
 
-    if (this.sinceLastEvent > 100) {
-      const witherCount = utils.randomInt(4);
+    if (this.sinceLastEvent > 10) {
+      const witherCount = utils.randomInt(4, 1);
       for (let i = 0; i < witherCount; i++) {
-        const crop = utils.randomize(this.crops);
-        crop.wither();
+        const crop = utils.randomize(this.crops.filter((crop) => crop.status !== 'withering'));
+        if (crop) crop.wither();
       }
       this.sinceLastEvent = 0;
     }
